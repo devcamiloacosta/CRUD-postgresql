@@ -15,13 +15,17 @@ try:
                             password=password,
                             port=port)
     cur = conn.cursor()
-    cur.execute("""CREATE TABLE IF NOT EXISTS users(
+    create_table = """CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
     )
-    """)
+    """
+    new_user = ("Camilo Acosta", "cacosta@yahoo.com", "c123456")
+    insert_users = "INSERT INTO users(name, email, password) VALUES (%s, %s, %s)"
+
+    cur.execute(insert_users, new_user)
     conn.commit()
 except Exception as Error:
     print(Error)
